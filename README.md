@@ -1,8 +1,16 @@
 # 360 ReBind
 
-**360 ReBind** is a Windows desktop application that maps physical gamepads and keyboard input to virtual Xbox 360 controllers. It is built with C# and WPF, reads physical controllers through DirectInput, and creates virtual Xbox 360 devices through ViGEmBus.
+**Have you ever wanted to play a local co-op PC game with one person on a controller and the other on keyboard?**
 
-Use it to rebind controller buttons, tune stick response, combine different input sources across virtual controller slots, and monitor input while configuring a profile.
+You try a controller-mapping tool… it fails.  
+You install Visual C++ redistributables, run as admin, try different versions, restart… still nothing.  
+The game only sees Xbox controllers, your pad isn’t detected properly, or the mapping software just refuses to work.
+
+**360 ReBind is the solution.**
+
+It maps any DirectInput gamepad (and the keyboard) to real virtual Xbox 360 controllers using ViGEmBus. Clean, reliable, and built for exactly this use case.
+
+---
 
 ## Features
 
