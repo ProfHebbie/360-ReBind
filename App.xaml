@@ -1,0 +1,90 @@
+<Application x:Class="ReBind360.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="UI/MainWindow.xaml">
+    <Application.Resources>
+        <!-- Neo-Brutalism Palette -->
+        <Color x:Key="BgColor">#0D0D11</Color>
+        <Color x:Key="PanelColor">#1A1A24</Color>
+        <Color x:Key="PanelLightColor">#252533</Color>
+        <Color x:Key="BorderDarkColor">#000000</Color>
+        
+        <!-- Vibrant Neo Accents -->
+        <Color x:Key="NeoYellowColor">#FFE600</Color>
+        <Color x:Key="NeoCyanColor">#00F0FF</Color>
+        <Color x:Key="NeoMintColor">#00FF85</Color>
+        <Color x:Key="NeoCoralColor">#FF3860</Color>
+        <Color x:Key="NeoPinkColor">#FF70C0</Color>
+        <Color x:Key="NeoPurpleColor">#9945FF</Color>
+
+        <SolidColorBrush x:Key="BgBrush" Color="{StaticResource BgColor}" />
+        <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelColor}" />
+        <SolidColorBrush x:Key="PanelLightBrush" Color="{StaticResource PanelLightColor}" />
+        <SolidColorBrush x:Key="BorderDarkBrush" Color="{StaticResource BorderDarkColor}" />
+        
+        <SolidColorBrush x:Key="NeoYellowBrush" Color="{StaticResource NeoYellowColor}" />
+        <SolidColorBrush x:Key="NeoCyanBrush" Color="{StaticResource NeoCyanColor}" />
+        <SolidColorBrush x:Key="NeoMintBrush" Color="{StaticResource NeoMintColor}" />
+        <SolidColorBrush x:Key="NeoCoralBrush" Color="{StaticResource NeoCoralColor}" />
+        <SolidColorBrush x:Key="NeoPinkBrush" Color="{StaticResource NeoPinkColor}" />
+        <SolidColorBrush x:Key="NeoPurpleBrush" Color="{StaticResource NeoPurpleColor}" />
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#9B9BAA" />
+
+        <!-- Hard Neo-Brutalist Drop Shadows (Zero Blur, Sharp Offset) -->
+        <DropShadowEffect x:Key="NeoShadow" BlurRadius="0" ShadowDepth="4" Direction="315" Color="#000000" Opacity="1"/>
+        <DropShadowEffect x:Key="NeoShadowSmall" BlurRadius="0" ShadowDepth="2.5" Direction="315" Color="#000000" Opacity="1"/>
+        <DropShadowEffect x:Key="NeoShadowHeavy" BlurRadius="0" ShadowDepth="6" Direction="315" Color="#000000" Opacity="1"/>
+
+        <!-- Neo-Brutalist Button Style -->
+        <Style x:Key="NeoBtn" TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="Background" Value="{StaticResource NeoYellowBrush}"/>
+            <Setter Property="BorderBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="2.5"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Effect="{StaticResource NeoShadowSmall}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="0" ShadowDepth="1" Direction="315" Color="#000000" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform X="1.5" Y="1.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Neo-Brutalist CheckBox Style -->
+        <Style x:Key="NeoCheckBox" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,4"/>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,216 @@
+<Window x:Class="ReBind360.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ReBind360.UI"
+        Title="360-ReBind // Neo-Brutalist Edition" Height="780" Width="920"
+        MinHeight="700" MinWidth="820"
+        Background="{StaticResource BgBrush}"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Neo-Brutalist Top Header -->
+        <Border Grid.Row="0" Background="{StaticResource NeoYellowBrush}" 
+                BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="3" 
+                CornerRadius="6" Padding="14,10" Margin="0,0,0,14"
+                Effect="{StaticResource NeoShadow}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="#000000" Padding="8,4" CornerRadius="3" Margin="0,0,10,0">
+                        <TextBlock Text="360" Foreground="{StaticResource NeoYellowBrush}" FontWeight="Black" FontSize="18"/>
+                    </Border>
+                    <TextBlock Text="REBIND" FontWeight="Black" FontSize="22" Foreground="#000000" VerticalAlignment="Center"/>
+                    <Border Background="#000000" Padding="6,2" CornerRadius="3" Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="V2.5 // NATIVE C#" Foreground="#00F0FF" FontWeight="Bold" FontSize="10"/>
+                    </Border>
+                </StackPanel>
+
+                <!-- Status Pill -->
+                <Border x:Name="StatusBadge" Background="{StaticResource NeoCoralBrush}" 
+                        BorderBrush="#000000" BorderThickness="2.5" 
+                        CornerRadius="4" Padding="12,6" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Effect="{StaticResource NeoShadowSmall}">
+                    <TextBlock x:Name="StatusLabel" Text="DISCONNECTED" Foreground="#FFFFFF" FontWeight="Black" FontSize="11"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Neo-Brutalist Tabs Container -->
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0">
+            <!-- Custom Tab Styling -->
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="tabBorder" Background="#1A1A24" BorderBrush="#000000" BorderThickness="2.5" 
+                                        CornerRadius="5,5,0,0" Margin="0,0,6,0" Padding="16,8" Cursor="Hand"
+                                        Effect="{StaticResource NeoShadowSmall}">
+                                    <ContentPresenter ContentSource="Header" TextBlock.FontWeight="Black" TextBlock.FontSize="12"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="tabBorder" Property="Background" Value="{StaticResource NeoCyanBrush}"/>
+                                        <Setter Property="Foreground" Value="#000000"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="tabBorder" Property="Background" Value="#222230"/>
+                                        <Setter Property="Foreground" Value="#A0A0B0"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="tabBorder" Property="Background" Value="#FFFFFF"/>
+                                        <Setter Property="Foreground" Value="#000000"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <!-- TAB 1: PLAY & MONITOR -->
+            <TabItem Header="PLAY &amp; MONITOR">
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Device Selector Card -->
+                    <Border Grid.Row="0" Background="{StaticResource PanelBrush}" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="12" Margin="0,0,0,12" Effect="{StaticResource NeoShadow}">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                                <TextBlock Text="SLOT:" Foreground="{StaticResource NeoYellowBrush}" FontWeight="Black" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ComboBox x:Name="SlotMenu" SelectionChanged="SlotMenu_SelectionChanged" PreviewKeyDown="Selector_PreviewKeyDown" PreviewTextInput="Selector_PreviewTextInput" PreviewMouseWheel="Selector_PreviewMouseWheel" Width="100" Height="32" FontWeight="Bold" Margin="0,0,12,0"/>
+                                <TextBlock Text="INPUT:" Foreground="{StaticResource NeoYellowBrush}" FontWeight="Black" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ComboBox x:Name="DeviceMenu" SelectionChanged="DeviceMenu_SelectionChanged" PreviewKeyDown="Selector_PreviewKeyDown" PreviewTextInput="Selector_PreviewTextInput" PreviewMouseWheel="Selector_PreviewMouseWheel" Width="190" Height="32" FontWeight="Bold" Margin="0,0,8,0"/>
+                                <Button Content="REFRESH" Click="RefreshBtn_Click" Style="{StaticResource NeoBtn}" Height="32" Margin="0,0,10,0"/>
+                            </StackPanel>
+                            
+                            <!-- Quick Presets -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="PRESETS:" Foreground="#9B9BAA" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <Button Content="DEFAULT" Click="PresetDefault_Click" Style="{StaticResource NeoBtn}" Background="#FFFFFF" Height="28" Padding="8,2" Margin="0,0,6,0"/>
+                                <Button Content="PLAYSTATION" Click="PresetPlayStation_Click" Style="{StaticResource NeoBtn}" Background="{StaticResource NeoPinkBrush}" Height="28" Padding="8,2" Margin="0,0,6,0"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Main Center Area: Controller Visual (Left) & Quick Tuning (Right) -->
+                    <Grid Grid.Row="1" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="280"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Controller Vector Model Card -->
+                        <Border Grid.Column="0" Background="#121218" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="10" Margin="0,0,12,0" Effect="{StaticResource NeoShadow}">
+                            <Grid>
+                                <local:ControllerVisual x:Name="ControllerModel"/>
+                                <Border Background="#FFE600" BorderBrush="#000000" BorderThickness="2" Padding="6,2" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3">
+                                    <TextBlock Text="LIVE VISUAL FEEDBACK" Foreground="#000000" FontWeight="Black" FontSize="9"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Quick Tuning & Inversion Panel (Right) -->
+                        <Border Grid.Column="1" Background="{StaticResource PanelBrush}" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="14" Effect="{StaticResource NeoShadow}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <Border Background="{StaticResource NeoCyanBrush}" BorderBrush="#000000" BorderThickness="2" Padding="6,4" Margin="0,0,0,12" CornerRadius="3">
+                                        <TextBlock Text="QUICK AXIS INVERSION" Foreground="#000000" FontWeight="Black" FontSize="11" HorizontalAlignment="Center"/>
+                                    </Border>
+
+                                    <!-- Quick Invert Checkboxes -->
+                                    <CheckBox x:Name="ChkInvertLeftY" Content="Invert Left Stick Y (Fix Up/Down)" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+                                    <CheckBox x:Name="ChkInvertLeftX" Content="Invert Left Stick X" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+                                    <Separator Background="#000000" Margin="0,8"/>
+
+                                    <CheckBox x:Name="ChkInvertRightY" Content="Invert Right Stick Y" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+                                    <CheckBox x:Name="ChkInvertRightX" Content="Invert Right Stick X" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+                                    <Separator Background="#000000" Margin="0,8"/>
+
+                                    <CheckBox x:Name="ChkInvertLT" Content="Invert Left Trigger (LT)" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+                                    <CheckBox x:Name="ChkInvertRT" Content="Invert Right Trigger (RT)" Style="{StaticResource NeoCheckBox}" Checked="InversionChanged" Unchecked="InversionChanged"/>
+
+                                    <!-- Deadzone Slider -->
+                                    <TextBlock Text="DEADZONE:" Foreground="{StaticResource NeoYellowBrush}" FontWeight="Black" FontSize="11" Margin="0,14,0,2"/>
+                                    <DockPanel>
+                                        <TextBlock x:Name="DeadzoneVal" Text="0.15" Foreground="#FFFFFF" FontWeight="Bold" Width="40" DockPanel.Dock="Right" TextAlignment="Right"/>
+                                        <Slider x:Name="DeadzoneSlider" Minimum="0.0" Maximum="0.45" Value="0.15" TickFrequency="0.05" IsSnapToTickEnabled="False" ValueChanged="DeadzoneSlider_ValueChanged"/>
+                                    </DockPanel>
+
+                                    <!-- Sensitivity Slider -->
+                                    <TextBlock Text="SENSITIVITY:" Foreground="{StaticResource NeoYellowBrush}" FontWeight="Black" FontSize="11" Margin="0,10,0,2"/>
+                                    <DockPanel>
+                                        <TextBlock x:Name="SensitivityVal" Text="1.00" Foreground="#FFFFFF" FontWeight="Bold" Width="40" DockPanel.Dock="Right" TextAlignment="Right"/>
+                                        <Slider x:Name="SensitivitySlider" Minimum="0.5" Maximum="2.0" Value="1.0" ValueChanged="SensitivitySlider_ValueChanged"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                    <!-- Raw Input Diagnostics Bar -->
+                    <Border Grid.Row="2" Background="{StaticResource PanelLightBrush}" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="10,8" Margin="0,0,0,12" Effect="{StaticResource NeoShadowSmall}">
+                        <DockPanel>
+                            <Border Background="#000000" Padding="6,2" CornerRadius="3" DockPanel.Dock="Left" Margin="0,0,10,0">
+                                <TextBlock Text="RAW INPUT" Foreground="{StaticResource NeoMintBrush}" FontWeight="Black" FontSize="10"/>
+                            </Border>
+                            <TextBlock x:Name="RawInputLabel" Text="Waiting for hardware..." Foreground="#00F0FF" FontFamily="Consolas" FontWeight="Bold" FontSize="11" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Big Neo-Brutalist Start/Stop Emulation Button -->
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="StartBtn" Grid.Column="0" Content="▶ START EMULATION" Click="StartBtn_Click" 
+                                Style="{StaticResource NeoBtn}" Background="{StaticResource NeoMintBrush}" 
+                                Height="48" FontSize="14" FontWeight="Black" Margin="0,0,12,0"/>
+                        
+                        <Border Grid.Column="1" Background="{StaticResource PanelBrush}" BorderBrush="#000000" BorderThickness="2.5" CornerRadius="4" Padding="12,8" VerticalAlignment="Center" Effect="{StaticResource NeoShadowSmall}">
+                            <TextBlock x:Name="InfoLabel" Text="Plug in a controller, verify inputs, and click Start Emulation." Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 2: REBIND CONTROLS -->
+            <TabItem Header="REBIND CONTROLS">
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Rebind Help Notice -->
+                    <Border Grid.Row="0" Background="{StaticResource NeoYellowBrush}" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="12,8" Margin="0,0,0,12" Effect="{StaticResource NeoShadowSmall}">
+                        <DockPanel>
+                            <TextBlock Text="⚡ LIVE REBIND MODE:" FontWeight="Black" FontSize="12" Foreground="#000000" Margin="0,0,8,0"/>
+                            <TextBlock Text="Click 'LISTEN' next to any button or axis, then immediately press or push it on your controller!" FontWeight="Bold" FontSize="11" Foreground="#000000"/>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Scrollable Rebind Matrix -->
+                    <Border Grid.Row="1" Background="{StaticResource PanelBrush}" BorderBrush="#000000" BorderThickness="3" CornerRadius="6" Padding="12" Effect="{StaticResource NeoShadow}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="RebindListContainer">
+                                <!-- Rebind rows populated dynamically in MainWindow.xaml.cs -->
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
